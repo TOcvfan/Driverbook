@@ -1,3 +1,7 @@
 
 Christian 251.99000000000004 Fuel Danmark Gelsted
 Christian 248.6752208 Fuel Danmark schönberg
+Christian 10444.0 Fuel Tjekkiet sudhf
+Christian 8392.5 Fuel Tjekkiet gfjhgf
+Christian 12085.2 Fuel Tjekkiet jhgf
+Christian 8392.5 Fuel Tjekkiet hgcf
