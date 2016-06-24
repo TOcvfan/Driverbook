@@ -7,7 +7,6 @@ package GUI;
 
 import Control.Control;
 import Interface.DriverInterface;
-import Entity.KmPerLiter;
 
 /**
  *
@@ -23,7 +22,6 @@ public class FuelGUI extends javax.swing.JFrame {
 	this.con = new Control();
 	this.setSize(600, 600);
 	setLocationRelativeTo(null);
-//        KmPerLiter kmpl = new KmPerLiter();
     }
 
     /**
@@ -162,11 +160,6 @@ public class FuelGUI extends javax.swing.JFrame {
 
         Betalt.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         Betalt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Christian", "Ask" }));
-        Betalt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BetaltActionPerformed(evt);
-            }
-        });
         getContentPane().add(Betalt);
         Betalt.setBounds(290, 420, 160, 40);
 
@@ -178,9 +171,8 @@ public class FuelGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_kmActionPerformed
 
     private void sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendActionPerformed
-        KmPerLiter kmpl = new KmPerLiter();
         String name = Betalt.getSelectedItem().toString();
-	double distance = Double.parseDouble(km.getText());
+	int distance = Integer.parseInt(km.getText());
 	double liter = Double.parseDouble(amount.getText());
 	double pricePerLiter = Double.parseDouble(money.getText());
 	String valuta = coin.getSelectedItem().toString();
@@ -188,10 +180,9 @@ public class FuelGUI extends javax.swing.JFrame {
 	String city = village.getText();
 	String type = "Fuel";
 	con.currency(valuta);
-	con.kmPerLiter(type, distance, liter);
-        
+	con.kmPerLiter(distance, liter);
 	con.saveKmPerL();
-	con.saveDistance(type, distance);
+	con.saveDistanceFuel(distance);
 	
 	con.newFuel(name, country, city, liter);
 	con.pricePerLiterDk(pricePerLiter);
@@ -200,11 +191,7 @@ public class FuelGUI extends javax.swing.JFrame {
 	con.totalPrice(liter, pricePerLiter);
 	con.economy(name, type, country, city);
 	con.saveEconomy();
-        
-	OversigtNu o = new OversigtNu();
-        
-	this.setVisible(true);
-	o.setVisible(true);
+	this.setVisible(false);
     }//GEN-LAST:event_sendActionPerformed
 
     private void coinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coinActionPerformed
@@ -220,14 +207,10 @@ public class FuelGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_AnnullerActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-//        OversigtNu o = new OversigtNu();
-//	this.setVisible(true);
-//	o.setVisible(true);
+        OversigtNu o = new OversigtNu();
+	this.setVisible(true);
+	o.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void BetaltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BetaltActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BetaltActionPerformed
 
    
 

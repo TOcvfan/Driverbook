@@ -132,9 +132,9 @@ public class startSide extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-//        OversigtNu on = new OversigtNu();
-//	this.setVisible(true);
-//	on.setVisible(true);
+        OversigtNu on = new OversigtNu();
+	this.setVisible(true);
+	on.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

@@ -10,7 +10,7 @@ package Entity;
  * @author TOcvfan
  */
 public class Fuel {
-    double distance;
+    int distance;
     double liter;
     double pricePerLiter;
     double rate;
@@ -18,7 +18,7 @@ public class Fuel {
     String country;
     String city;
 
-    public Fuel(double distance, double liter, double pricePerLiter, String name, String country, String city) {
+    public Fuel(int distance, double liter, double pricePerLiter, String name, String country, String city) {
 	this.distance = distance;
 	this.liter = liter;
 	this.pricePerLiter = pricePerLiter;
@@ -27,7 +27,7 @@ public class Fuel {
 	this.city = city;
     }
 
-    public Fuel(double distance) {
+    public Fuel(int distance) {
 	this.distance = distance;
     }
 
@@ -60,7 +60,7 @@ public class Fuel {
 
     
 
-    public Fuel(double distance, double liter, double pricePerLiter, double rate) {
+    public Fuel(int distance, double liter, double pricePerLiter, double rate) {
 	this.distance = distance;
 	this.liter = liter;
 	this.pricePerLiter = pricePerLiter;
@@ -76,16 +76,16 @@ public class Fuel {
 	this.rate = rate;
     }
 
-    public Fuel(double distance, double liter) {
+    public Fuel(int distance, double liter) {
 	this.distance = distance;
 	this.liter = liter;
     }
 
-    public double getDistance() {
+    public int getDistance() {
 	return distance;
     }
 
-    public void setDistance(double distance) {
+    public void setDistance(int distance) {
 	this.distance = distance;
     }
 

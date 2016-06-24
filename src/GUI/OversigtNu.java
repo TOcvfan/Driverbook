@@ -8,7 +8,6 @@ package GUI;
 import Control.Control;
 import Entity.KmPerLiter;
 import Interface.DriverInterface;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
@@ -21,22 +20,17 @@ public class OversigtNu extends javax.swing.JFrame {
     DefaultListModel kmPerLList = new DefaultListModel();
     DriverInterface con;
     ArrayList<KmPerLiter> km = new ArrayList<>();
-    
     /**
      * Creates new form OversigtNu
-     * 
      */
     public OversigtNu() {
 	initComponents();
 	this.con = new Control();
 	this.setSize(600, 600);
 	setLocationRelativeTo(null);
-        double km = con.loadKmPerL();
-        String kmpl = new DecimalFormat("##.##").format(km);
-	viewKml.setText(kmpl);
-        //double distance = con.drivenDistance();
-        //ting.setText(String.valueOf(distance));
-        //System.out.println("gui distance: " + String.valueOf(distance));
+	double text = addToKmPerLListe();
+	String newText = Double.toString(text);
+	viewKml.setText(newText);
     }
 
     /**
@@ -49,7 +43,7 @@ public class OversigtNu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         viewKml = new javax.swing.JLabel();
-        ting = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -64,8 +58,8 @@ public class OversigtNu extends javax.swing.JFrame {
         viewKml.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         viewKml.setText("jLabel3");
 
-        ting.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        ting.setText("jLabel4");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel4.setText("jLabel4");
 
         jButton1.setText("Print");
 
@@ -91,7 +85,7 @@ public class OversigtNu extends javax.swing.JFrame {
                         .addGap(148, 148, 148)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(viewKml)
-                            .addComponent(ting))))
+                            .addComponent(jLabel4))))
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -106,7 +100,7 @@ public class OversigtNu extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(ting))
+                    .addComponent(jLabel4))
                 .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -121,14 +115,25 @@ public class OversigtNu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
     
-       
+    private double addToKmPerLListe(){
+	double n = 0;
+	
+	for (int i = 0; i < con.loadKmPerL().length; i++) {
+	    i++;
+	    n = i/con.loadKmPerL().length;
+	    kmPerLList.addElement(n);
+	}
+	return n;
+	
+    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel ting;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel viewKml;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,25 +10,41 @@ package Entity;
  * @author TOcvfan
  */
 public class Distance {
-    double distance;
+    int distanceFuel;
+    double distanceDriver;
 
     public Distance() {
     }
 
-    public Distance(double distance) {
-	this.distance = distance;
+    public Distance(int distanceFuel) {
+	this.distanceFuel = distanceFuel;
     }
 
-    
-
-    public double getDistance() {
-	return distance;
+    public Distance(double distanceDriver) {
+	this.distanceDriver = distanceDriver;
     }
 
-    public void setDistance(double distance) {
-	this.distance = distance;
+    public Distance(int distanceFuel, double distanceDriver) {
+	this.distanceFuel = distanceFuel;
+	this.distanceDriver = distanceDriver;
     }
 
-    
+    public int getDistanceFuel() {
+	return distanceFuel;
+    }
+
+    public void setDistanceFuel(int distanceFuel) {
+	this.distanceFuel = distanceFuel;
+    }
+
+    public double getDistanceDriver() {
+	//System.out.println("getter for afstand driver: " + distanceDriver);
+	return distanceDriver;
+    }
+
+    public void setDistanceDriver(double distanceDriver) {
+	//System.out.println("setter for afstand driver: " + distanceDriver);
+	this.distanceDriver = distanceDriver;
+    }
     
 }
