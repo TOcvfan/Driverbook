@@ -13,7 +13,7 @@ import com.sun.javafx.sg.prism.NGTriangleMesh;
  */
 public interface DriverInterface {
       
-    public double kmPerLiter(int distance, double liter);
+    public double kmPerLiter(String type, double distance, double liter);
     
     public double totalPrice(double liter, double pricePerLiter);
     
@@ -23,7 +23,7 @@ public interface DriverInterface {
     
     public void currency(String valuta);
     
-    public void driverChange(double distance, String name, String country, String city);
+    public void driverChange(String type, double distance, String name, String country, String city);
     
     public void newFuel(String name, String country, String city, double liter);
     
@@ -31,9 +31,9 @@ public interface DriverInterface {
     
     public String time(String startTime, String endTime);
     
-    public void saveDistanceFuel(int distance);
+    public void saveDistance(String type, double distance);
     
-    public void saveDistanceDriver(double distance);
+    public double loadDrivenDis();
     
     public void saveEconomy();
     
@@ -41,7 +41,7 @@ public interface DriverInterface {
     
     public void saveKmPerL();
     
-    public double [] loadKmPerL();
+    public double loadKmPerL();
     
     public void saveDriver();
     

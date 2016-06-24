@@ -41,17 +41,28 @@ public class Control implements DriverInterface{
 	dis = new Distance();
 	
     }
+    
+    
+    public double distancecalc(String type, double distance){
+        double distance1 = fh.loadDistance(type);
+	double distance2 = distance;
+	//System.out.println("loaded afstand i kmPL: "+distance1);
+	double drivenDistance = distance2 - distance1;
+        dis.setDrivenDistance(drivenDistance);
+        fh.addDrivenDistance(dis);
+	fh.saveDrivenDistance();
+        return drivenDistance;
+    }
 
     @Override
-    public double kmPerLiter(int distance, double liter) {
+    public double kmPerLiter(String type, double distance, double liter) {
+	double drivenDistance = distancecalc(type, distance);
 	
-	int distance1 = fh.loadDistanceFuel();
-	int distance2 = distance;
-	//System.out.println("loaded afstand i kmPL: "+distance1);
-	int drivenDistance = distance2 - distance1;
 	
 	double kmPerLiter = drivenDistance/liter;
 	f.setDistance(drivenDistance);
+        
+        //fh.saveDrivenDistance();
 	//System.out.println("beregnet afstand: " + drivenDistance);
 	k.setKmPerLiter(kmPerLiter);
 	fh.addFuel(f);
@@ -59,10 +70,11 @@ public class Control implements DriverInterface{
 	return kmPerLiter;
     }
     @Override
-    public void saveDistanceFuel(int distance){
-	dis.setDistanceFuel(distance);
+    public void saveDistance(String type, double distance){
+	dis.setDistance(distance);
 	fh.addDistance(dis);
-	fh.saveDistanceFuel();
+	fh.saveDistance(type);
+	
     }
 
     @Override
@@ -121,11 +133,10 @@ public class Control implements DriverInterface{
     }
 
     @Override
-    public void driverChange(double distance, String name, String country, String city) {
-	double distance1 = fh.loadDistanceDriver();
-	double distance2 = distance;
+    public void driverChange(String type, double distance, String name, String country, String city) {
+	
 	//System.out.println("loaded afstand i driverchange: "+distance1);
-	double drivenDistance = distance2 - distance1;
+	double drivenDistance = distancecalc(type, distance);
 	d.setName(name);
 	d.setDistance(drivenDistance);
 	//d.setTime(time);
@@ -180,14 +191,17 @@ public class Control implements DriverInterface{
     }
 
     @Override
-    public double [] loadKmPerL() {
-	double[] list = null;
-	try {
-	    list = fh.loadKmPerL();
-	} catch (IOException ex) {
-	    Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
-	}
-	return list;
+    public double loadKmPerL() {
+	
+	double kmpl = fh.loadKmPerL();
+	return kmpl;
+    }
+
+    @Override
+    public double loadDrivenDis() {
+	
+	double km = fh.loadDrivenDistance();
+	return km;
     }
 
     @Override
@@ -222,13 +236,7 @@ public class Control implements DriverInterface{
 	
     }
 
-    @Override
-    public void saveDistanceDriver(double distance) {
-	dis.setDistanceDriver(distance);
-	fh.addDistance(dis);
-	fh.saveDistanceDriver();
-    }
-
+   
     @Override
     public void saveEconomy() {
 	fh.saveEconomy();

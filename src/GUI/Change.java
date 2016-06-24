@@ -163,11 +163,11 @@ public class Change extends javax.swing.JFrame {
 	double distance = Double.parseDouble(km.getText());
 	String country = nation.getSelectedItem().toString();
 	String city = village.getText();
-	
+	String type = "Driver";
 	con.time(time1, time2);
-	con.driverChange(distance, name, country, city);
+	con.driverChange(type, distance, name, country, city);
 	con.saveDriver();
-	con.saveDistanceDriver(distance);
+	con.saveDistance(type, distance);
 	
 	this.setVisible(false);
 	

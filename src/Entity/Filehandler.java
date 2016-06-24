@@ -30,13 +30,14 @@ public class Filehandler {
     String fueling;
     String change;
     String newEconomy;
-    int newDistanceFuel;
-    double newDistanceDriver;
+    double newDistance;
+    double newDrivenDistance;
     public static ArrayList<KmPerLiter> kmPerL = new ArrayList<KmPerLiter>();
     public static ArrayList<Fuel> fuelList = new ArrayList<Fuel>();
     public static ArrayList<Drivers> driverList = new ArrayList<Drivers>();
     public static ArrayList<Economy> moneyList = new ArrayList<Economy>();
     public static ArrayList<Distance> distanceList = new ArrayList<Distance>();
+    public static ArrayList<Distance> drivenDistanceList = new ArrayList<Distance>();
 
 //---------------------------------------------------------------------------------------------------------------------------
     public void addDriver(Drivers driver) {
@@ -57,6 +58,11 @@ public class Filehandler {
 
     public void addDistance(Distance dist) {
 	distanceList.add(dist);
+	//System.out.println("filehandler add distance: " + dist);
+    }
+    
+    public void addDrivenDistance(Distance dist) {
+	drivenDistanceList.add(dist);
 	//System.out.println("filehandler add distance: " + dist);
     }
 
@@ -90,20 +96,27 @@ public class Filehandler {
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
+        
     }
 
-    public static double[] loadKmPerL() throws IOException {
-
-	Scanner sc = new Scanner(new File("kmPerL.txt"));
-	ArrayList<Double> arr = new ArrayList<>();
+    public double loadKmPerL() {
+        try {
+	    sc = new Scanner(new File("kmPerL.txt"));
+	} catch (Exception e) {
+	    System.out.println("Could not locate file");
+	}
+	
 	while (sc.hasNext()) {
-	    arr.add(sc.nextDouble());
+
+	    double kmpl = Double.parseDouble(sc.next());
+
+	    KmPerLiter km = new KmPerLiter(kmpl);
+	    kmPerL.add(km);
+
+	    kilometerPerLiter = kmpl;
+
 	}
-	double doubleArr[] = new double[arr.size()];
-	for (int i = 0; i < arr.size(); i++) {
-	    doubleArr[i] = arr.get(i);
-	}
-	return doubleArr;
+	return kilometerPerLiter;
     }
 
     public void saveDriver() {
@@ -144,7 +157,7 @@ public class Filehandler {
 	while (sc.hasNext()) {
 
 	    String name = sc.next();
-	    int distance = Integer.parseInt(sc.next());
+	    double distance = Double.parseDouble(sc.next());
 	    String time = sc.next();
 	    String country = sc.next();
 	    String city = sc.next();
@@ -199,7 +212,7 @@ public class Filehandler {
 
 	while (sc.hasNext()) {
 
-	    int distance = Integer.parseInt(sc.next());
+	    double distance = Double.parseDouble(sc.next());
 	    double liter = Double.parseDouble(sc.next());
 	    double pricePerLiter = Double.parseDouble(sc.next());
 
@@ -218,51 +231,7 @@ public class Filehandler {
 	}
 
     }
-
-    public void saveDistanceFuel() {
-	try {
-
-	    File file = new File("distanceFuel.txt");
-	    String distanceFuel = "";
-	    // if file doesnt exists, then create it
-	    if (!file.exists()) {
-		file.createNewFile();
-	    }
-	    for (int i = 0; i < distanceList.size(); i++) {
-		distanceFuel = "" + distanceList.get(i).getDistanceFuel();
-	    }
-	    FileWriter fw = new FileWriter(file.getAbsoluteFile());
-	    BufferedWriter bw = new BufferedWriter(fw);
-	    bw.write(distanceFuel);
-	    bw.close();
-
-	    //System.out.println("Done: " + distanceFuel);
-
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
-    }
-
-    public int loadDistanceFuel() {
-	try {
-	    sc = new Scanner(new File("distanceFuel.txt"));
-	} catch (Exception e) {
-	    System.out.println("Could not locate file");
-	}
-
-	while (sc.hasNext()) {
-
-	    int distancefuel = Integer.parseInt(sc.next());
-
-	    Distance fu = new Distance(distancefuel);
-	    distanceList.add(fu);
-
-	    newDistanceFuel += distancefuel;
-
-	}
-	return newDistanceFuel;
-    }
-
+    
     public void saveEconomy() {
 	try {
 	    File file = new File("economy.txt");
@@ -318,17 +287,21 @@ public class Filehandler {
 
     }
 
-    public void saveDistanceDriver() {
+    public void saveDistance(String type) {
+        File file = null;
+        String distanceDriver = "";
 	try {
-
-	    File file = new File("distanceDriver.txt");
-	    String distanceDriver = "";
+            if("Fuel".equals(type)){
+                file = new File("distanceFuel.txt");
+	    }else if("Driver".equals(type)){
+                file = new File("distanceDriver.txt");
+            }
 	    // if file doesnt exists, then create it
 	    if (!file.exists()) {
 		file.createNewFile();
 	    }
 	    for (int i = 0; i < distanceList.size(); i++) {
-		distanceDriver = "" + distanceList.get(i).getDistanceDriver();
+		distanceDriver = "" + distanceList.get(i).getDistance();
 		//System.out.println("loop: " + distanceDriver);
 	    }
 	    FileWriter fw = new FileWriter(file.getAbsoluteFile());
@@ -343,23 +316,71 @@ public class Filehandler {
 	}
     }
 
-    public double loadDistanceDriver() {
+    public double loadDistance(String type) {
 	try {
-	    sc = new Scanner(new File("distanceDriver.txt"));
+            if("Fuel".equals(type)){
+                sc = new Scanner(new File("distanceFuel.txt"));
+            }else if("Driver".equals(type)){
+                sc = new Scanner(new File("distanceDriver.txt"));
+            }
 	} catch (Exception e) {
 	    System.out.println("Could not locate file");
 	}
 
 	while (sc.hasNext()) {
 
-	    double distanceDriver = Double.parseDouble(sc.next());
+	    double distance = Double.parseDouble(sc.next());
 
-	    Distance fu = new Distance(distanceDriver);
+	    Distance fu = new Distance(distance);
 	    distanceList.add(fu);
 
-	    newDistanceDriver += distanceDriver;
+	    newDistance += distance;
 
 	}
-	return newDistanceDriver;
+	return newDistance;
+    }
+    public void saveDrivenDistance() {
+        File file = null;
+        String distanceDriver = "";
+	try {
+            file = new File("drivenDistance.txt");
+            // if file doesnt exists, then create it
+	    if (!file.exists()) {
+		file.createNewFile();
+	    }
+	    for (int i = 0; i < drivenDistanceList.size(); i++) {
+		distanceDriver = "" + drivenDistanceList.get(i).getDrivenDistance();
+		//System.out.println("loop: " + distanceDriver);
+	    }
+	    FileWriter fw = new FileWriter(file.getAbsoluteFile());
+	    BufferedWriter bw = new BufferedWriter(fw);
+	    bw.write(distanceDriver);
+	    bw.close();
+
+	    //System.out.println("Done: " + distanceDriver);
+
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+    }
+    public double loadDrivenDistance() {
+	try {
+            sc = new Scanner(new File("drivenDistance.txt"));
+            
+	} catch (Exception e) {
+	    System.out.println("Could not locate file");
+	}
+
+	while (sc.hasNext()) {
+
+	    double distance = Double.parseDouble(sc.next());
+
+	    Distance fu = new Distance(distance);
+	    drivenDistanceList.add(fu);
+
+	    newDrivenDistance += distance;
+
+	}
+	return newDrivenDistance;
     }
 }

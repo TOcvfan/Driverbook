@@ -180,9 +180,9 @@ public class FuelGUI extends javax.swing.JFrame {
 	String city = village.getText();
 	String type = "Fuel";
 	con.currency(valuta);
-	con.kmPerLiter(distance, liter);
+	con.kmPerLiter(type, distance, liter);
 	con.saveKmPerL();
-	con.saveDistanceFuel(distance);
+	con.saveDistance(type, distance);
 	
 	con.newFuel(name, country, city, liter);
 	con.pricePerLiterDk(pricePerLiter);
@@ -192,6 +192,8 @@ public class FuelGUI extends javax.swing.JFrame {
 	con.economy(name, type, country, city);
 	con.saveEconomy();
 	this.setVisible(false);
+        OversigtNu o = new OversigtNu();
+	o.setVisible(true);
     }//GEN-LAST:event_sendActionPerformed
 
     private void coinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coinActionPerformed
@@ -207,9 +209,7 @@ public class FuelGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_AnnullerActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        OversigtNu o = new OversigtNu();
-	this.setVisible(true);
-	o.setVisible(true);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
    
