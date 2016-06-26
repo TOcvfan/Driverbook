@@ -13,6 +13,7 @@ import Entity.Fuel;
 import Entity.KmPerLiter;
 import Interface.DriverInterface;
 import java.io.IOException;
+import java.sql.Driver;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +25,7 @@ import java.util.logging.Logger;
  * @author TOcvfan
  */
 public class Control implements DriverInterface{
-    
+    String[] driverarray;
     Drivers d;
     Fuel f;
     Filehandler fh;
@@ -78,20 +79,23 @@ public class Control implements DriverInterface{
     }
 
     @Override
-    public double totalPrice(double liter, double pricePerLiter) {
+    public double totalPriceDK(String type, double price) {
 	double rate = f.getRate();
 	//System.out.println(rate);
-	double price = liter * pricePerLiter * rate;
-	e.setPrice(price);
+	double priceDK = price * rate;
+	e.setPrice(priceDK);
 	//System.out.println("metode totalpris " + price);
 	fh.addEconomy(e);
-	return price;
+        dis.setDistance(priceDK);
+	fh.addDistance(dis);
+        fh.saveDistance(type);
+	return priceDK;
     }
 
     @Override
-    public double pricePerLiterDk(double pricePerLiter) {
+    public double pricePerLiterDK(double liter, double price) {
 	double rate = f.getRate();
-	double pricePerLiterDk = pricePerLiter * rate;
+	double pricePerLiterDk = liter/price * rate;
 	f.setPricePerLiter(pricePerLiterDk);
 	fh.addFuel(f);
 	return pricePerLiterDk;
@@ -198,6 +202,13 @@ public class Control implements DriverInterface{
     }
 
     @Override
+    public double loadPrice(String type) {
+	
+	double kmpl = fh.loadDistance(type);
+	return kmpl;
+    }
+    
+    @Override
     public double loadDrivenDis() {
 	
 	double km = fh.loadDrivenDistance();
@@ -211,9 +222,9 @@ public class Control implements DriverInterface{
     }
 
     @Override
-    public void loadDriver() {
-	
-	fh.loadDriver();
+    public String[] loadDriver() {
+        driverarray = fh.loadDriver();
+        return driverarray;
     }
 
     @Override

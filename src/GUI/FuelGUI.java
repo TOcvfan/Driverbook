@@ -172,27 +172,28 @@ public class FuelGUI extends javax.swing.JFrame {
 
     private void sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendActionPerformed
         String name = Betalt.getSelectedItem().toString();
-	int distance = Integer.parseInt(km.getText());
+	double distance = Double.parseDouble (km.getText());
 	double liter = Double.parseDouble(amount.getText());
-	double pricePerLiter = Double.parseDouble(money.getText());
+	double price = Double.parseDouble(money.getText());
 	String valuta = coin.getSelectedItem().toString();
 	String country = nation.getSelectedItem().toString();
 	String city = village.getText();
 	String type = "Fuel";
+        String typePrice = "Price";
 	con.currency(valuta);
 	con.kmPerLiter(type, distance, liter);
 	con.saveKmPerL();
 	con.saveDistance(type, distance);
 	
 	con.newFuel(name, country, city, liter);
-	con.pricePerLiterDk(pricePerLiter);
+	con.pricePerLiterDK(liter, price);
 	con.saveFuel();
 	
-	con.totalPrice(liter, pricePerLiter);
+	con.totalPriceDK(typePrice, price);
 	con.economy(name, type, country, city);
 	con.saveEconomy();
 	this.setVisible(false);
-        OversigtNu o = new OversigtNu();
+        OversigtNuFuel o = new OversigtNuFuel();
 	o.setVisible(true);
     }//GEN-LAST:event_sendActionPerformed
 

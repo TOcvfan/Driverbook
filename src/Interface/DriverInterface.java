@@ -5,19 +5,24 @@
  */
 package Interface;
 
+import Entity.Drivers;
 import com.sun.javafx.sg.prism.NGTriangleMesh;
+import java.util.ArrayList;
 
 /**
  *
  * @author TOcvfan
  */
 public interface DriverInterface {
+    //rayList<Drivers> driverList = new ArrayList<Drivers>();
       
     public double kmPerLiter(String type, double distance, double liter);
     
-    public double totalPrice(double liter, double pricePerLiter);
+    public double totalPriceDK(String type, double price);
     
-    public double pricePerLiterDk(double pricePerLiter);
+    public double pricePerLiterDK(double liter, double price);
+    
+    public double loadPrice(String type);
     
     public double ferryBrige(double price);
     
@@ -45,7 +50,7 @@ public interface DriverInterface {
     
     public void saveDriver();
     
-    public void loadDriver();
+    public String[] loadDriver();
     
     public void saveFuel();
     

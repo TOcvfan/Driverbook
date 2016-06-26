@@ -25,10 +25,10 @@ public class Filehandler {
     Fuel f = new Fuel();
     Economy e = new Economy();
     KmPerLiter k = new KmPerLiter();
-    private Scanner sc;
+    private static Scanner sc;
     Double kilometerPerLiter;
     String fueling;
-    String change;
+    String[] change;
     String newEconomy;
     double newDistance;
     double newDrivenDistance;
@@ -146,30 +146,37 @@ public class Filehandler {
 
     }
 
-    public void loadDriver() {
-
+    public String[] loadDriver() {
+        
 	try {
 	    sc = new Scanner(new File("driver.txt"));
 	} catch (Exception e) {
 	    System.out.println("Could not locate file");
+            //System.out.println("Could not find the file to load from! Returning null.");
+            e.printStackTrace();
+            return null;
 	}
 
-	while (sc.hasNext()) {
-
-	    String name = sc.next();
-	    double distance = Double.parseDouble(sc.next());
-	    String time = sc.next();
-	    String country = sc.next();
-	    String city = sc.next();
-
-	    Drivers dr = new Drivers(name, distance, time, country, city);
+	while (sc.hasNextLine()) {
+        
+            
+	    String name = sc.nextLine();
+	    double distance = Double.parseDouble(sc.nextLine());
+	    String time = sc.nextLine();
+	    String country = sc.nextLine();
+	    String city = sc.nextLine();
+            Drivers dr = new Drivers(name, distance, time, country, city);
 	    driverList.add(dr);
-
-	    change += name + " " + distance + " " + time + " " + country + " " + city + "\n";
-	    change.trim();
+            for(int i = 0; i < driverList.size(); i++){
+	    change[i] += name + " " + distance + " " + time + " " + country + " " + city + "\n";
+            
+	    
+            }
+	    
 
 	}
-
+        sc.close();
+        return change;
     }
 
     public void saveFuel() {
@@ -260,7 +267,7 @@ public class Filehandler {
 
     }
 
-    public void loadEconomy() {
+    public String loadEconomy() {
 
 	try {
 	    sc = new Scanner(new File("economy.txt"));
@@ -284,7 +291,7 @@ public class Filehandler {
 	    newEconomy.trim();
 	    //System.out.println(kilometerPerLiter.trim());
 	}
-
+        return newEconomy;
     }
 
     public void saveDistance(String type) {
@@ -295,6 +302,8 @@ public class Filehandler {
                 file = new File("distanceFuel.txt");
 	    }else if("Driver".equals(type)){
                 file = new File("distanceDriver.txt");
+            }else if("Price".equals(type)){
+                file = new File("Price.txt");
             }
 	    // if file doesnt exists, then create it
 	    if (!file.exists()) {
@@ -322,6 +331,8 @@ public class Filehandler {
                 sc = new Scanner(new File("distanceFuel.txt"));
             }else if("Driver".equals(type)){
                 sc = new Scanner(new File("distanceDriver.txt"));
+            }else if("Price".equals(type)){
+                sc = new Scanner(new File("Price.txt"));
             }
 	} catch (Exception e) {
 	    System.out.println("Could not locate file");

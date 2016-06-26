@@ -1,12 +1,3 @@
-
 Christian 251.99000000000004 Fuel Danmark Gelsted
 Christian 248.6752208 Fuel Danmark schönberg
-Christian 10444.0 Fuel Tjekkiet sudhf
-Christian 8392.5 Fuel Tjekkiet gfjhgf
-Christian 12085.2 Fuel Tjekkiet jhgf
-Christian 8392.5 Fuel Tjekkiet hgcf
-Christian 105372.5 Fuel Danmark sdfsdf
-Christian 101829.0 Fuel Danmark osidfuoi
-Christian 932.5 Fuel Danmark wqerwq
-Christian 932.5 Fuel Tjekkiet jfjgjhg
-Christian 932.5 Fuel Tjekkiet jfggjh
+Christian 376.73 Fuel Spanien Madrid
